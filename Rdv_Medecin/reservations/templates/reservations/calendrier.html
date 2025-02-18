@@ -1,0 +1,68 @@
+{% extends "reservations/base.html" %}
+
+{% block title %}Calendrier des créneaux{% endblock %}
+{% block content %}
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Calendrier des créneaux</title>
+        
+        <!-- Inclure les styles de FullCalendar depuis un CDN -->
+        <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet">
+        
+        <!-- Inclure le script FullCalendar -->
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+    </head>
+    <body>
+        <h1>Calendrier des créneaux</h1>
+        
+        <!-- Conteneur du calendrier -->
+        <div id="calendar"></div>
+
+        {% if events_json %}
+            <!-- Insérer les événements en JSON dans un élément script -->
+            <script id="events_data" type="application/json">
+                {{ events_json|safe }}
+            </script>
+        {% else %}
+            <p>Aucun événement disponible.</p>
+        {% endif %}
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var calendarEl = document.getElementById('calendar');
+        
+                // Vérifier si l'élément avec ID 'events_data' existe
+                var eventsDataElement = document.getElementById('events_data');
+                if (eventsDataElement) {
+                    // Récupérer les événements en JSON
+                    var eventsData = JSON.parse(eventsDataElement.textContent);
+        
+                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                        initialView: 'dayGridMonth',  // Vue initiale (ex: mois)
+                        events: eventsData, // Passer les événements à FullCalendar
+                        eventRender: function(info) {
+                            // Appliquer la couleur en fonction de la disponibilité
+                            info.el.style.backgroundColor = info.event.extendedProps.color;
+                        },
+                        eventClick: function(info) {
+                            // Si le créneau est disponible, redirige l'utilisateur vers la page de réservation
+                            if (info.event.extendedProps.color === 'green') {
+                                window.location.href = info.event.extendedProps.url;
+                            }
+                        },
+                        editable: true,  // Permet de rendre les événements éditables si nécessaire
+                        droppable: true   // Permet de faire glisser les événements si nécessaire
+                    });
+                    calendar.render();  // Rendre le calendrier
+                } else {
+                    console.log('L\'élément #events_data est introuvable');
+                }
+            });
+        </script>
+        
+    </body>
+    </html>
+{% endblock %}

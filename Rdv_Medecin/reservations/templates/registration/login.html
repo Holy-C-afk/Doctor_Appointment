@@ -1,0 +1,82 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h2>Connexion</h2>
+
+  <style>
+    /* Style général du formulaire de connexion */
+    form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        width: 100%;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    label {
+        font-weight: bold;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+
+    input:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    /* Style spécifique pour le bouton */
+    button[type="submit"] {
+        background-color: #007bff;
+        border: none;
+        color: white;
+        font-size: 16px;
+        padding: 10px;
+        width: 100%;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+  </style>
+
+  <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Se connecter</button>
+  </form>
+{% endblock %}

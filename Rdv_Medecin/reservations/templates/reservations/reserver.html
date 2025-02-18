@@ -1,0 +1,21 @@
+{% extends "reservations/base.html" %}
+
+{% block content %}
+    <h2>Réserver un rendez-vous</h2>
+
+    <!-- Affichage des messages de succès ou erreur -->
+    {% if messages %}
+        <div class="alert alert-info">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <p><strong>Créneau:</strong> {{ creneau.titre }} - {{ creneau.start_time }} à {{ creneau.end_time }}</p>
+
+        <button type="submit" class="btn btn-primary">Réserver</button>
+    </form>
+{% endblock %}

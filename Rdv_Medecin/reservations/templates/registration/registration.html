@@ -1,0 +1,64 @@
+{% extends "reservations/base.html" %}
+
+{% block content %}
+  <h2>Inscription</h2>
+
+  <style>
+    /* Style général du formulaire */
+    form {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    label {
+        font-weight: bold;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+
+    input:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+  </style>
+
+  <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">S'inscrire</button>
+  </form>
+{% endblock %}

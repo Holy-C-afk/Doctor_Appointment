@@ -1,0 +1,21 @@
+{% extends "reservations/base.html" %}
+
+{% block title %}Mes Rendez-vous{% endblock %}
+
+{% block content %}
+  <h2>Mes Rendez-vous</h2>
+
+  <p>{{ message }}</p>
+
+  {% if rdvs %}
+    <ul>
+      {% for rdv in rdvs %}
+        <li>
+          Rendez-vous pour le créneau : {{ rdv.creneau.start_time }} à {{ rdv.creneau.end_time }}
+          (Statut : {% if rdv.creneau.disponible %}Disponible{% else %}Réservé{% endif %})
+        </li>
+      {% endfor %}
+    </ul>
+
+  {% endif %}
+{% endblock %}

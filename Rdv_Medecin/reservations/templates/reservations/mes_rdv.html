@@ -3,19 +3,82 @@
 {% block title %}Mes Rendez-vous{% endblock %}
 
 {% block content %}
-  <h2>Mes Rendez-vous</h2>
+  <div class="rdv-page">
+    <h2>Mes Rendez-vous</h2>
 
-  <p>{{ message }}</p>
+    <p>{{ message }}</p>
 
-  {% if rdvs %}
-    <ul>
-      {% for rdv in rdvs %}
-        <li>
-          Rendez-vous pour le créneau : {{ rdv.creneau.start_time }} à {{ rdv.creneau.end_time }}
-          (Statut : {% if rdv.creneau.disponible %}Disponible{% else %}Réservé{% endif %})
-        </li>
-      {% endfor %}
-    </ul>
+    {% if rdvs %}
+      <ul>
+        {% for rdv in rdvs %}
+          <li>
+            <span>🕒 {{ rdv.creneau.start_time }} - {{ rdv.creneau.end_time }}</span>
+            <span class="status {% if rdv.creneau.disponible %}disponible{% else %}reserve{% endif %}">
+              {% if rdv.creneau.disponible %}Disponible{% else %}Réservé{% endif %}
+            </span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Aucun rendez-vous trouvé.</p>
+    {% endif %}
+  </div>
 
-  {% endif %}
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .rdv-page h2 {
+        text-align: center;
+        color: #333;
+    }
+
+    .rdv-page p {
+        text-align: center;
+        font-size: 18px;
+        color: #555;
+    }
+
+    .rdv-page ul {
+        list-style: none;
+        padding: 0;
+        max-width: 600px;
+        margin: 20px auto;
+    }
+
+    .rdv-page li {
+        background: #fff;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 8px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .rdv-page li span {
+        font-weight: bold;
+    }
+
+    .status {
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    .status.disponible {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .status.reserve {
+        background-color: #dc3545;
+        color: white;
+    }
+  </style>
 {% endblock %}

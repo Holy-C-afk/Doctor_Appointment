@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %}
+
+{% block title %}Déconnexion{% endblock %}
+
+{% block content %}
+    <div class="container text-center mt-5">
+        <h2>Vous avez été déconnecté.</h2>
+        <p>Merci de votre visite ! Vous pouvez vous reconnecter si besoin.</p>
+        <a href="{% url 'login' %}" class="btn btn-primary">Se reconnecter</a>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Retour à l'accueil</a>
+    </div>
+{% endblock %}

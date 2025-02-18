@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect , get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Creneau, RendezVous
 from django.http import JsonResponse
-from django.contrib.auth import login
+from django.contrib.auth import login , logout
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import RendezVousForm
 from .forms import RegistrationForm
@@ -133,3 +133,7 @@ def calendrier(request):
     events_json = json.dumps(events) if events else '[]'  # Assurez-vous que c'est un tableau JSON valide
     
     return render(request, 'reservations/calendrier.html', {'events_json': events_json})
+
+def logout_view(request):
+    logout(request)  # Déconnecte l'utilisateur
+    return render(request, 'reservations/logout.html')  # Affiche la page de déconnexion
